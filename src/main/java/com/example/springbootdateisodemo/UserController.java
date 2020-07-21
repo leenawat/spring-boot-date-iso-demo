@@ -33,18 +33,21 @@ public class UserController {
   public User selectV2(@PathVariable Integer id) {
     return userRepository.findById(id);
   }
-  
+
+  @GetMapping(path = "/api/v3/user/{id}")
+  public Map<String, Object> selectV3(@PathVariable Integer id) {
+    return userRepository.findByIdV3(id);
+  }
+
   @PostMapping(path = "/api/v1/user")
   public User save(@RequestBody User user) {
-    userJpaRepository.save(user);
-    System.out.println(user.getDob());
-    return user;
+    return userJpaRepository.save(user);
   }
 
   @PostMapping(path = "/api/v2/user")
   public User save(@RequestParam String user) throws JsonMappingException, JsonProcessingException {
     User u = objectMapper.readValue(user, User.class);
-    return userJpaRepository.save(u); 
+    return userJpaRepository.save(u);
   }
 
   @PutMapping(path = "/api/v2/user/{id}")
@@ -52,10 +55,10 @@ public class UserController {
       throws JsonMappingException, JsonProcessingException {
     Optional<User> optional = userJpaRepository.findById(id);
     User u1 = objectMapper.readValue(user, User.class);
-    if(optional.isPresent()) {
-    	User u2 = optional.get();
-    	u2.setDob(u1.getDob());
-    	userJpaRepository.save(u2);
+    if (optional.isPresent()) {
+      User u2 = optional.get();
+      u2.setDob(u1.getDob());
+      userJpaRepository.save(u2);
     }
     return userJpaRepository.findById(id);
   }
