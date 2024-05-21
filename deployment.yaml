@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: spring-boot-app
-        image: leenawat/spring-boot-date-iso-demo:latest
+        image: leenawat/spring-boot-date-iso-demo:38
         ports:
         - containerPort: 8080
 ---
