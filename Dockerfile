@@ -24,7 +24,7 @@ FROM openjdk:11-jre-slim AS runtime
 WORKDIR /app
 
 # Copy the packaged Spring Boot application JAR file from the previous stage
-COPY --from=builder /app/target/* ./app.jar
+COPY --from=builder /app/target/*.jar ./app.jar
 
 # Expose the port that your Spring Boot application listens on
 EXPOSE 8080
